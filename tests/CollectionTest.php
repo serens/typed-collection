@@ -42,6 +42,18 @@ final class CollectionTest extends TestCase
         $collection->getElement(342);
     }
 
+    public function testGettingFirstThrowExceptionWhenCollectionIsEmpty(): void
+    {
+        $this->expectException(\OutOfBoundsException::class);
+        (new Collection())->getFirst();
+    }
+
+    public function testGettingLastThrowExceptionWhenCollectionIsEmpty(): void
+    {
+        $this->expectException(\OutOfBoundsException::class);
+        (new Collection())->getLast();
+    }
+
     public function testCollectionCanBeUsedAsAnArray(): void
     {
         $collection = new Collection();

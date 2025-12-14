@@ -19,9 +19,15 @@ class ScalarCollection extends AbstractTypedCollection
 
     protected function assertValidItem(mixed $item): void
     {
-        if (gettype($item) !== $this->scalarType->value) {
+        $message = 'Adding invalid item of type "%s" to Collection. Expected and only allowed type is "%s".';
+
+        if ($this->scalarType === ScalarType::CALLABLE && !is_callable($item)) {
+            throw new InvalidArgumentException(sprintf($message, gettype($item), 'callable'));
+        }
+
+        if ($this->scalarType !== ScalarType::CALLABLE && gettype($item) !== $this->scalarType->value) {
             throw new InvalidArgumentException(sprintf(
-                'Adding invalid item of type "%s" to Collection. Expected and only allowed type is "%s".',
+                $message,
                 gettype($item),
                 $this->scalarType->value
             ));

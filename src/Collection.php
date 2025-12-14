@@ -8,7 +8,7 @@ use OutOfBoundsException;
 
 /**
  * A simple implementation of interfaces \Iterator, \Countable and \ArrayAccess.
- * Addiotnally, adds some basic helper functions.
+ * Additionally, adds some basic helper functions.
  */
 class Collection implements \Iterator, \Countable, \ArrayAccess
 {
@@ -38,6 +38,10 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
 
     public function getFirst(): mixed
     {
+        if (empty($this->items)) {
+            throw new OutOfBoundsException('Collection is empty.');
+        }
+
         return $this->items[0];
     }
 
@@ -55,6 +59,10 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
 
     public function getLast(): mixed
     {
+        if (empty($this->items)) {
+            throw new OutOfBoundsException('Collection is empty.');
+        }
+
         return $this->items[$this->count() - 1];
     }
 

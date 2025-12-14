@@ -10,13 +10,6 @@ use Serens\TypedCollection\ScalarType;
 
 final class ScalarCollectionTest extends TestCase
 {
-    public function testCollectionCanBeConstructedWithValidScalarType(): void
-    {
-        foreach (ScalarType::cases() as $scalarType) {
-            $this->assertInstanceOf(ScalarCollection::class, new ScalarCollection($scalarType));
-        }
-    }
-
     public function testAddingValidItemsToCollection(): void
     {
         $this->assertEquals(1, (new ScalarCollection(ScalarType::ARRAY, [ ['An array'] ]))->count());
@@ -24,6 +17,8 @@ final class ScalarCollectionTest extends TestCase
         $this->assertEquals(1, (new ScalarCollection(ScalarType::DOUBLE, [ 15.345 ]))->count());
         $this->assertEquals(1, (new ScalarCollection(ScalarType::INT, [ 4 ]))->count());
         $this->assertEquals(1, (new ScalarCollection(ScalarType::STRING, [ 'A string' ]))->count());
+        $this->assertEquals(1, (new ScalarCollection(ScalarType::OBJECT, [ new \stdClass() ]))->count());
+        $this->assertEquals(1, (new ScalarCollection(ScalarType::CALLABLE, [ function (string $a): string { return strtolower($a); } ]))->count());
     }
 
     public function testAddingInvalidItemsThrowsException(): void

@@ -11,4 +11,6 @@ enum ScalarType: string
     case DOUBLE = 'double';
     case INT = 'integer';
     case STRING = 'string';
+    case OBJECT = 'object';
+    case CALLABLE = 'callable';
 }
